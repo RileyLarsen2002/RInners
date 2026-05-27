@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hobby Roaster 3000</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom right, #1e1e2f, #2f2f4f);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      background: #ff6b6b;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    button:hover {
+      background: #ff4f4f;
+      transform: scale(1.03);
+    }
+
+    .response {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎯 Hobby Roaster 3000</h1>
+
+    <input type="text" id="hobbyInput" placeholder="What's your hobby?" />
+    <button onclick="roastHobby()">Roast Me</button>
+
+    <div class="response" id="response"></div>
+
+    <div id="nameSection" style="display:none; margin-top:20px;">
+      <input type="text" id="nameInput" placeholder="What's your name?" />
+      <button onclick="handleName()">Submit Name</button>
+    </div>
+  </div>
+
+  <script>
+    const hobbyRoasts = [
+      hobby => `${hobby}? Bold choice. Nothing screams "I peaked in middle school" quite like that.`,
+      hobby => `Ah yes, ${hobby}. The official pastime of people who remind teachers about homework.`,
+      hobby => `${hobby}? Respectfully, that's the human equivalent of unsalted crackers.`,
+      hobby => `You do ${hobby}? Incredible. Truly the Toyota Corolla of hobbies.`,
+      hobby => `${hobby} sounds like something an NPC would say in a side quest.`,
+      hobby => `Wow, ${hobby}. Save some excitement for the rest of us.`,
+    ];
+
+    function roastHobby() {
+      const hobby = document.getElementById('hobbyInput').value.trim();
+      const response = document.getElementById('response');
+      const nameSection = document.getElementById('nameSection');
+
+      if (!hobby) {
+        response.innerHTML = 'Please enter a hobby so I can professionally judge you.';
+        return;
+      }
+
+      const randomRoast = hobbyRoasts[Math.floor(Math.random() * hobbyRoasts.length)];
+      response.innerHTML = randomRoast(hobby) + '<br><br>Now tell me your name.';
+
+      nameSection.style.display = 'block';
+    }
+
+    function handleName() {
+      const name = document.getElementById('nameInput').value.trim();
+      const response = document.getElementById('response');
+
+      if (!name) {
+        response.innerHTML += '<br>Please enter your name.';
+        return;
+      }
+
+      if (name.toLowerCase() === 'corinne') {
+        response.innerHTML += '<br><br>Never mind, you are pretty cool. Stay fresh BK 😎';
+        return;
+      }
+
+      const punTemplates = [
+        `${name}? More like ${name}-ly disappointing.`,
+        `I've met sandwiches with more charisma than ${name}.`,
+        `${name} sounds like the name of someone who claps when the plane lands.`,
+        `Ah, ${name}. A name with strong "forwards chain emails" energy.`,
+        `${name}? Honestly sounds like a tax accountant superhero alter ego.`,
+        `If mediocrity had a mascot, it'd probably be ${name}.`
+      ];
+
+      const randomPun = punTemplates[Math.floor(Math.random() * punTemplates.length)];
+
+      response.innerHTML += `<br><br>${randomPun}`;
+    }
+  </script>
+</body>
+</html>
